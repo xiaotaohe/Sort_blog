@@ -1,0 +1,69 @@
+set cursorline
+"va文件，自动插入文件头 
+autocmd BufNewFile *.cpp,*.hpp,*.[ch],*.sh,*.java exec ":call SetTitle()" 
+""定义函数SetTitle，自动插入文件头 
+func SetTitle() 
+    "如果文件类型为.sh文件 
+    if &filetype == 'sh' 
+		call setline(1,"\#########################################################################") 
+		call append(line("."), "\# File Name: ".expand("%")) 
+		call append(line(".")+1, "\# Author: 陶超") 
+		call append(line(".")+2, "\# mail: taochao1997@qq.com") 
+		call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
+		call append(line(".")+4, "\#########################################################################") 
+		call append(line(".")+5, "\#!/bin/bash") 
+		call append(line(".")+6, "") 
+	else 
+		call setline(1, "/*************************************************************************") 
+		call append(line("."), "    > File Name: ".expand("%")) 
+		call append(line(".")+1, "    > Author: 陶超") 
+		call append(line(".")+2, "    > Mail: taochao1997@qq.com ") 
+		call append(line(".")+3, "    > Created Time: ".strftime("%c")) 
+		call append(line(".")+4, " ************************************************************************/") 
+		call append(line(".")+5, "")
+	endif
+	if &filetype == 'cc'
+		call append(line(".")+6, "#include<iostream>")
+		call append(line(".")+7, "using namespace std;")
+		call append(line(".")+8, "")
+		call append(line(".")+9, "int main()")
+		call append(line(".")+10, "{")
+		call append(line(".")+11, "")
+		call append(line(".")+12, "	return 0;")
+		call append(line(".")+13, "}")
+	endif
+	if &filetype == 'cpp'
+		call append(line(".")+6, "#include<iostream>")
+		call append(line(".")+7, "#include<stdio.h>")
+		call append(line(".")+8, "#include<unistd.h>")
+		call append(line(".")+9, "#include<fcntl.h>")
+		call append(line(".")+10, "#include<sys/fcntl.h>")
+		call append(line(".")+11, "#include<sys/types.h>")
+		call append(line(".")+12, "#include<stdlib.h>")
+		call append(line(".")+13, "using namespace std;")
+		call append(line(".")+14, "")
+		call append(line(".")+15, "int main()")
+		call append(line(".")+16, "{")
+		call append(line(".")+17, "")
+		call append(line(".")+18, "	return 0;")
+		call append(line(".")+19, "}")
+	endif
+	if &filetype == 'c'
+		call append(line(".")+6, "")
+		call append(line(".")+7, "#include<stdio.h>")
+		call append(line(".")+8, "#include<unistd.h>")
+		call append(line(".")+9, "#include<fcntl.h>")
+		call append(line(".")+10, "#include<sys/fcntl.h>")
+		call append(line(".")+11, "#include<sys/types.h>")
+		call append(line(".")+12, "#include<stdlib.h>")
+		"call append(7, "")
+		call append(line(".")+13, "")
+		call append(line(".")+14, "int main()")
+		call append(line(".")+15, "{")
+		call append(line(".")+16, "")
+		call append(line(".")+17, "	return 0;")
+		call append(line(".")+18, "}")
+	endif
+"新建文件后，自动定位到文件末尾
+	autocmd BufNewFile * normal G
+endfunc
